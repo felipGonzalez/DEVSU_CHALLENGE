@@ -11,6 +11,4 @@ public interface SpringDataClientRepository extends JpaRepository<ClientEntity,L
 
     Optional<ClientEntity> findByClientId(String clientId);
 
-    void deleteByClientId(String clientId);
-
 }

@@ -1,7 +1,6 @@
 com\devsu\customerservice\CustomerserviceApplication.class
 com\devsu\customerservice\application\dto\ClientResponseDTO.class
 com\devsu\customerservice\infrastructure\configuration\RuntimeExceptionInterceptor.class
-com\devsu\customerservice\infrastructure\repository\client\SpringDataPersonRepository.class
 com\devsu\customerservice\domain\model\Client.class
 com\devsu\customerservice\infrastructure\utils\ApiError.class
 com\devsu\customerservice\application\mapper\ClientMapper.class
@@ -16,6 +15,7 @@ com\devsu\customerservice\infrastructure\rest\ClientController.class
 com\devsu\customerservice\domain\repository\ClientRepository.class
 com\devsu\customerservice\infrastructure\configuration\BeanConfiguration.class
 com\devsu\customerservice\infrastructure\repository\client\PersonEntity.class
+com\devsu\customerservice\domain\model\Gender.class
 com\devsu\customerservice\application\ClientServiceImp.class
 com\devsu\customerservice\domain\validator\ClientValidator.class
 com\devsu\customerservice\domain\DomainException.class

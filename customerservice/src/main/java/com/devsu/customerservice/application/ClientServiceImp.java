@@ -6,10 +6,15 @@ import com.devsu.customerservice.application.dto.ClientUpdateDTO;
 import com.devsu.customerservice.application.mapper.ClientMapper;
 import com.devsu.customerservice.domain.DomainException;
 import com.devsu.customerservice.domain.model.Client;
+import com.devsu.customerservice.domain.model.Gender;
 import com.devsu.customerservice.domain.repository.ClientRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static  com.devsu.customerservice.domain.validator.ClientValidator.*;
+
 
 public class ClientServiceImp implements ClientService{
 
@@ -22,6 +27,8 @@ public class ClientServiceImp implements ClientService{
 
     public ClientResponseDTO createClient(ClientCreateDTO clientCreateDTO) {
         Client client = ClientMapper.toEntity(clientCreateDTO);
+        validateDataForCreate(client);
+        client.generateClientId();
         client = clientRepository.save(client);
         return ClientMapper.toDTO(client);
     }
@@ -33,28 +40,38 @@ public class ClientServiceImp implements ClientService{
     }
 
     @Override
-    public ClientResponseDTO getClientById(String clientId) {
+    public ClientResponseDTO getClientById(Long clientId) {
         Client client = getClientEntityById(clientId);
         return ClientMapper.toDTO(client);
     }
 
     @Override
-    public ClientResponseDTO updateClient(String clientId, ClientUpdateDTO clientUpdateDTO) {
+    public ClientResponseDTO getByClientId(String clientId){
+        Client client = getClientEntityByClientId(clientId);
+        return ClientMapper.toDTO(client);
+    }
+
+
+
+    @Override
+    public ClientResponseDTO updateClient(Long clientId, ClientUpdateDTO clientUpdateDTO) {
         Client client = getClientEntityById(clientId);
         ClientMapper.updateFromDTO(clientUpdateDTO, client);
+        validateDataRequired(client);
         client = clientRepository.save(client);
         return ClientMapper.toDTO(client);
     }
 
     @Override
-    public ClientResponseDTO patchClient(String clientId, ClientUpdateDTO clientUpdateDTO) {
+    public ClientResponseDTO patchClient(Long clientId, ClientUpdateDTO clientUpdateDTO) {
         Client client = getClientEntityById(clientId);
 
         if (clientUpdateDTO.getName() != null) {
+            validateName(clientUpdateDTO.getName());
             client.setName(clientUpdateDTO.getName());
         }
         if (clientUpdateDTO.getGender() != null) {
-            client.setGender(clientUpdateDTO.getGender());
+            client.setGender(Gender.fromValue(clientUpdateDTO.getGender()));
         }
         if (clientUpdateDTO.getAge() > 0) {
             client.setAge(clientUpdateDTO.getAge());
@@ -63,9 +80,11 @@ public class ClientServiceImp implements ClientService{
             client.setIdentification(clientUpdateDTO.getIdentification());
         }
         if (clientUpdateDTO.getAddress() != null) {
+            validateAddress(clientUpdateDTO.getAddress());
             client.setAddress(clientUpdateDTO.getAddress());
         }
         if (clientUpdateDTO.getPhone() != null) {
+            validatePhone(clientUpdateDTO.getPhone());
             client.setPhone(clientUpdateDTO.getPhone());
         }
         if (clientUpdateDTO.getStatus() != null) {
@@ -78,11 +97,16 @@ public class ClientServiceImp implements ClientService{
 
     @Override
     public void deleteClient(Long clientId) {
-
+        clientRepository.deleteById(clientId);
     }
 
-    private Client getClientEntityById(String id) {
-        return clientRepository.findByClientId(id)
+    private Client getClientEntityById(Long id) {
+        return clientRepository.findById(id)
                 .orElseThrow(() -> new DomainException("Client not found with id: " + id));
+    }
+
+    private Client getClientEntityByClientId(String clientId) {
+        return clientRepository.findByClientId(clientId)
+                .orElseThrow(() -> new DomainException("Client not found with clientId: " + clientId));
     }
 }

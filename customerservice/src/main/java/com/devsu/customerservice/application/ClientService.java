@@ -10,15 +10,17 @@ import java.util.Optional;
 
 public interface ClientService {
 
-    public ClientResponseDTO createClient(ClientCreateDTO client);
+    ClientResponseDTO createClient(ClientCreateDTO client);
 
-    public List<ClientResponseDTO> getAllClients();
+    List<ClientResponseDTO> getAllClients();
 
-    public ClientResponseDTO getClientById(String clientId);
+    ClientResponseDTO getClientById(Long clientId);
 
-    public ClientResponseDTO updateClient(String clientId, ClientUpdateDTO clientUpdateDTO);
+    ClientResponseDTO getByClientId(String clientId);
 
-    public ClientResponseDTO patchClient(String clientId, ClientUpdateDTO clientUpdateDTO);
+    ClientResponseDTO updateClient(Long clientId, ClientUpdateDTO clientUpdateDTO);
 
-    public void deleteClient(Long clientId);
+    ClientResponseDTO patchClient(Long clientId, ClientUpdateDTO clientUpdateDTO);
+
+    void deleteClient(Long clientId);
 }

@@ -25,11 +25,18 @@ public class ClientController {
     }
 
 
-    @GetMapping("/{clientId}")
-    public ResponseEntity<ClientResponseDTO> getClient(@PathVariable String clientId) {
-        ClientResponseDTO client = clientService.getClientById(clientId);
+    @GetMapping("/{id}")
+    public ResponseEntity<ClientResponseDTO> getClient(@PathVariable Long id) {
+        ClientResponseDTO client = clientService.getClientById(id);
         return ResponseEntity.ok(client);
     }
+
+    @GetMapping("/")
+    public ResponseEntity<ClientResponseDTO> getClientByClientId(@RequestParam String clientId) {
+        ClientResponseDTO client = clientService.getByClientId(clientId);
+        return ResponseEntity.ok(client);
+    }
+
 
     @GetMapping
     public ResponseEntity<List<ClientResponseDTO>> getAllClients() {
@@ -44,14 +51,14 @@ public class ClientController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ClientResponseDTO> updateClient(@PathVariable String clientId, @RequestBody ClientUpdateDTO clientUpdateDTO) {
-        ClientResponseDTO updatedClient = clientService.updateClient(clientId, clientUpdateDTO);
+    public ResponseEntity<ClientResponseDTO> updateClient(@PathVariable Long id, @RequestBody ClientUpdateDTO clientUpdateDTO) {
+        ClientResponseDTO updatedClient = clientService.updateClient(id, clientUpdateDTO);
         return ResponseEntity.ok(updatedClient);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<ClientResponseDTO> patchClient(@PathVariable String clientId, @RequestBody ClientUpdateDTO clientUpdateDTO) {
-        ClientResponseDTO patchedClient = clientService.patchClient(clientId, clientUpdateDTO);
+    public ResponseEntity<ClientResponseDTO> patchClient(@PathVariable Long id, @RequestBody ClientUpdateDTO clientUpdateDTO) {
+        ClientResponseDTO patchedClient = clientService.patchClient(id, clientUpdateDTO);
         return ResponseEntity.ok(patchedClient);
     }
 

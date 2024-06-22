@@ -12,7 +12,7 @@ public class Client {
     private Long id;
     private ClientId clientId;
     private String name;
-    private String gender;
+    private Gender gender;
     private int age;
     private String identification;
     private String address;
@@ -26,6 +26,10 @@ public class Client {
 
     public void addClientId(String clientId){
         this.clientId = new ClientId(clientId);
+    }
+
+    public String getClientId(){
+        return clientId != null ? clientId.getValue() : null;
     }
 
 }

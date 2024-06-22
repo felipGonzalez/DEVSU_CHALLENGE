@@ -4,6 +4,7 @@ import com.devsu.customerservice.application.dto.ClientCreateDTO;
 import com.devsu.customerservice.application.dto.ClientResponseDTO;
 import com.devsu.customerservice.application.dto.ClientUpdateDTO;
 import com.devsu.customerservice.domain.model.Client;
+import com.devsu.customerservice.domain.model.Gender;
 
 public interface ClientMapper {
 
@@ -13,14 +14,13 @@ public interface ClientMapper {
         }
         Client entity = new Client();
         entity.setName(dto.getName());
-        entity.setGender(dto.getGender());
+        entity.setGender(Gender.fromValue(dto.getGender()));
         entity.setAge(dto.getAge());
         entity.setIdentification(dto.getIdentification());
         entity.setAddress(dto.getAddress());
         entity.setPhone(dto.getPhone());
         entity.setPassword(dto.getPassword());
         entity.setStatus(dto.isStatus());
-        entity.generateClientId();
         return entity;
     }
 
@@ -29,13 +29,14 @@ public interface ClientMapper {
             return null;
         }
         ClientResponseDTO dto = new ClientResponseDTO();
+        dto.setId(entity.getId());
         dto.setName(entity.getName());
-        dto.setGender(entity.getGender());
+        dto.setGender(entity.getGender().getValue());
         dto.setAge(entity.getAge());
         dto.setIdentification(entity.getIdentification());
         dto.setAddress(entity.getAddress());
         dto.setPhone(entity.getPhone());
-        dto.setClientId(entity.getClientId() != null ? entity.getClientId().getValue() : null);
+        dto.setClientId(entity.getClientId());
         dto.setStatus(entity.isStatus());
         return dto;
     }
@@ -48,7 +49,7 @@ public interface ClientMapper {
             entity.setName(dto.getName());
         }
         if (dto.getGender() != null) {
-            entity.setGender(dto.getGender());
+            entity.setGender(Gender.fromValue(dto.getGender()));
         }
         if (dto.getAge() > 0) {
             entity.setAge(dto.getAge());

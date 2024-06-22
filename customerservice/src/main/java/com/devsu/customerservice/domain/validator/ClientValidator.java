@@ -6,12 +6,15 @@ import com.devsu.customerservice.domain.model.Client;
 public class ClientValidator {
 
     public static void validateDataForCreate(Client client){
-        validateName(client.getName());
-        validateAddress(client.getAddress());
-        validatePhone(client.getAddress());
+        validateDataRequired(client);
         validatePassword(client.getPassword());
     }
 
+    public static void validateDataRequired(Client client){
+        validateName(client.getName());
+        validateAddress(client.getAddress());
+        validatePhone(client.getPhone());
+    }
 
     public static void validateName(String name) {
         if (isValidString(name)) {
@@ -26,7 +29,7 @@ public class ClientValidator {
     }
 
     public static void validatePhone(String phone) {
-        if (isValidPhoneNumber(phone)) {
+        if (isValidString(phone) || isValidPhoneNumber(phone)) {
             throw new DomainException("El teléfono es obligatorio y solo puede contener números");
         }
     }
@@ -35,6 +38,10 @@ public class ClientValidator {
         if (isValidString(password)) {
             throw new DomainException("La contraseña no puede ser nula o estar vacía");
         }
+
+        if (password.length() < 4) {
+            throw new DomainException("La contraseña debe tener minimo 4 caracteres");
+        }
     }
 
     private static boolean isValidString(String str) {
@@ -42,7 +49,7 @@ public class ClientValidator {
     }
 
     private static boolean isValidPhoneNumber(String phone) {
-        return phone != null && phone.matches("\\d+");
+        return phone != null && !phone.matches("^\\d+$");
     }
 
 }

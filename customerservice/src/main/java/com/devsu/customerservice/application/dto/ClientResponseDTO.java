@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ClientResponseDTO {
 
+    private Long id;
     private String clientId;
     private String name;
     private String gender;

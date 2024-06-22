@@ -4,21 +4,20 @@ import com.devsu.customerservice.domain.model.Client;
 import com.devsu.customerservice.domain.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Component
+@Transactional
 public class ClientEntityRepositoryImp implements ClientRepository {
-
-    private final SpringDataPersonRepository springDataPersonRepository;
 
     private final SpringDataClientRepository springDataClientRepository;
 
     @Autowired
-    public ClientEntityRepositoryImp(SpringDataPersonRepository springDataPersonRepository, SpringDataClientRepository springDataClientRepository) {
-        this.springDataPersonRepository = springDataPersonRepository;
+    public ClientEntityRepositoryImp(SpringDataClientRepository springDataClientRepository) {
         this.springDataClientRepository = springDataClientRepository;
     }
 
@@ -49,14 +48,13 @@ public class ClientEntityRepositoryImp implements ClientRepository {
     }
 
     @Override
-    public void delete(Long clientId) {
+    public void deleteById(Long clientId) {
         springDataClientRepository.deleteById(clientId);
     }
 
     private Client mapToClient(ClientEntity clientEntity) {
         Client client = new Client();
         client.setId(clientEntity.getId());
-        client.addClientId(clientEntity.getClientId());
         client.setName(clientEntity.getName());
         client.setGender(clientEntity.getGender());
         client.setAge(clientEntity.getAge());
@@ -65,13 +63,13 @@ public class ClientEntityRepositoryImp implements ClientRepository {
         client.setPhone(clientEntity.getPhone());
         client.setPassword(clientEntity.getPassword());
         client.setStatus(clientEntity.isStatus());
+        client.addClientId(clientEntity.getClientId());
         return client;
     }
 
     private ClientEntity mapToClientEntity(Client client) {
         ClientEntity clientEntity = new ClientEntity();
         clientEntity.setId(client.getId());
-        clientEntity.setClientId(client.getClientId().getValue());
         clientEntity.setName(client.getName());
         clientEntity.setGender(client.getGender());
         clientEntity.setAge(client.getAge());
@@ -80,6 +78,7 @@ public class ClientEntityRepositoryImp implements ClientRepository {
         clientEntity.setPhone(client.getPhone());
         clientEntity.setPassword(client.getPassword());
         clientEntity.setStatus(client.isStatus());
+        clientEntity.setClientId(client.getClientId());
         return clientEntity;
     }
 }

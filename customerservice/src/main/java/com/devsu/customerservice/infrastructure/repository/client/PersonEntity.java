@@ -1,12 +1,12 @@
 package com.devsu.customerservice.infrastructure.repository.client;
 
+import com.devsu.customerservice.domain.model.Gender;
 import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity
 @Table(name = "person")
 @Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "type_person")
 @Data
 public class PersonEntity {
 
@@ -14,7 +14,11 @@ public class PersonEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String gender;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "gender")
+    private Gender gender;
+
     private int age;
     private String identification;
     private String address;

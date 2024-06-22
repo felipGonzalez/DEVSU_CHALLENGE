@@ -15,5 +15,4 @@ public class ClientUpdateDTO {
     private String address;
     private String phone;
     private Boolean status;
-
 }

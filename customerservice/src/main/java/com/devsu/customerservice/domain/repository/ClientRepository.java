@@ -17,5 +17,5 @@ public interface ClientRepository {
 
     public Client save(Client client);
 
-    public void delete(Long clientId);
+    public void deleteById(Long clientId);
 }

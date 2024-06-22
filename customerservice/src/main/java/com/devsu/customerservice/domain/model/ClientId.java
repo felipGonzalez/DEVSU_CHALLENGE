@@ -17,8 +17,8 @@ public class ClientId {
     }
 
     public static ClientId generate() {
-        String uuid = UUID.randomUUID().toString().replaceAll("[^0-9]", "");
-        String clientId = uuid.substring(0, 6);
+        String uuid = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 5);
+        String clientId = uuid.substring(0, 5);
         return new ClientId(clientId);
     }
 }

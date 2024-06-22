@@ -2,7 +2,6 @@ CREATE SCHEMA `customerdb` DEFAULT CHARACTER SET utf8 ;
 
 CREATE TABLE person (
     id BIGINT NOT NULL AUTO_INCREMENT,
-    type_person VARCHAR(31) NOT NULL,
     address VARCHAR(255),
     age INTEGER NOT NULL,
     gender VARCHAR(255),
@@ -25,13 +24,13 @@ CREATE TABLE client (
 ) ENGINE=InnoDB;
 
 
-INSERT INTO person (type_person, name, gender, age, identification, address, phone)
+INSERT INTO person (name, gender, age, identification, address, phone)
 VALUES
-('CLIENTE', 'John Doe', 'Male', 30, '1234567890', '123 Fake Street', '555-1234'),
-('CLIENTE', 'Jane Smith', 'Female', 25, '2345678901', '742 Evergreen Terrace', '555-5678'),
-('CLIENTE', 'Carlos Brown', 'Male', 40, '3456789012', '456 Dream Blvd', '555-9876'),
-('CLIENTE', 'Anna White', 'Female', 35, '4567890123', '321 Forgotten Road', '555-8765'),
-('CLIENTE', 'Louis Green', 'Male', 28, '5678901234', '789 Liberty Ave', '555-4321');
+('John Doe', 'MALE', 30, '1234567890', '123 Fake Street', '5551234'),
+('Jane Smith', 'FEMALE', 25, '2345678901', '742 Evergreen Terrace', '5555678'),
+('Carlos Brown', 'MALE', 40, '3456789012', '456 Dream Blvd', '5559876'),
+('Anna White', 'FEMALE', 35, '4567890123', '321 Forgotten Road', '5558765'),
+('Louis Green', 'MALE', 28, '5678901234', '789 Liberty Ave', '5554321');
 
 INSERT INTO client (client_id, password, status, id)
 VALUES

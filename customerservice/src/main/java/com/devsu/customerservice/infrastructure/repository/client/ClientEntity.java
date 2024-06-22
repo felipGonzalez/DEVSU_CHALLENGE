@@ -6,7 +6,6 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "client")
-@DiscriminatorValue("CLIENTE")
 @Getter
 @Setter
 public class ClientEntity extends PersonEntity {
