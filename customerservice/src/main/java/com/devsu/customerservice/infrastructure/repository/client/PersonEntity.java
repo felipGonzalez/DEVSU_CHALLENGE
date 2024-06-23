@@ -19,9 +19,16 @@ public class PersonEntity {
     @Column(name = "gender")
     private Gender gender;
 
+    @Column(name = "age")
     private int age;
+
+    @Column(name = "identification")
     private String identification;
+
+    @Column(name = "address", nullable = false)
     private String address;
+
+    @Column(name = "phone", nullable = false)
     private String phone;
 
 }

@@ -10,10 +10,12 @@ import lombok.Setter;
 @Setter
 public class ClientEntity extends PersonEntity {
 
-    @Column(unique = true)
+    @Column(name = "clientId", unique = true, nullable = false)
     private String clientId;
 
+    @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "status", nullable = false)
     private boolean status;
 }

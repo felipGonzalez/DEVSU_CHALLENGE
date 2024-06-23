@@ -14,7 +14,7 @@ public interface ClientMapper {
         }
         Client entity = new Client();
         entity.setName(dto.getName());
-        entity.setGender(Gender.fromValue(dto.getGender()));
+        entity.addGender(dto.getGender());
         entity.setAge(dto.getAge());
         entity.setIdentification(dto.getIdentification());
         entity.setAddress(dto.getAddress());
@@ -49,7 +49,7 @@ public interface ClientMapper {
             entity.setName(dto.getName());
         }
         if (dto.getGender() != null) {
-            entity.setGender(Gender.fromValue(dto.getGender()));
+            entity.addGender(dto.getGender());
         }
         if (dto.getAge() > 0) {
             entity.setAge(dto.getAge());

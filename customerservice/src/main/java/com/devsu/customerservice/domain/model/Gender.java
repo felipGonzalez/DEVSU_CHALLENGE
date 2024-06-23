@@ -28,6 +28,6 @@ public enum Gender {
             validValues.append(gender.value).append(", ");
         }
         validValues.setLength(validValues.length() - 2);
-        throw new DomainException("Invalid gender value: " + value + ". Valid values are: " + validValues);
+        throw new DomainException("Genero no valido: " + value + ". Los valores validos son: " + validValues);
     }
 }

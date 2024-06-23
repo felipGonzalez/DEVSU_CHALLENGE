@@ -12,12 +12,12 @@ import java.util.stream.Collectors;
 
 @Component
 @Transactional
-public class ClientEntityRepositoryImp implements ClientRepository {
+public class ClientRepositoryImp implements ClientRepository {
 
     private final SpringDataClientRepository springDataClientRepository;
 
     @Autowired
-    public ClientEntityRepositoryImp(SpringDataClientRepository springDataClientRepository) {
+    public ClientRepositoryImp(SpringDataClientRepository springDataClientRepository) {
         this.springDataClientRepository = springDataClientRepository;
     }
 
@@ -48,8 +48,8 @@ public class ClientEntityRepositoryImp implements ClientRepository {
     }
 
     @Override
-    public void deleteById(Long clientId) {
-        springDataClientRepository.deleteById(clientId);
+    public void deleteByClientId(String clientId) {
+        springDataClientRepository.deleteByClientId(clientId);
     }
 
     private Client mapToClient(ClientEntity clientEntity) {

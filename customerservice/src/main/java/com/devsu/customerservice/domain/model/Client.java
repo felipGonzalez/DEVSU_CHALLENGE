@@ -32,4 +32,8 @@ public class Client {
         return clientId != null ? clientId.getValue() : null;
     }
 
+    public void addGender(String gender){
+        this.gender = Gender.fromValue(gender);
+    }
+
 }

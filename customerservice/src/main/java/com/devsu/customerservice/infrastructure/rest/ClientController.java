@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/client")
+@RequestMapping("/clientes")
 @CrossOrigin(value = "*")
 public class ClientController {
 
@@ -33,38 +33,34 @@ public class ClientController {
 
     @GetMapping("/")
     public ResponseEntity<ClientResponseDTO> getClientByClientId(@RequestParam String clientId) {
-        ClientResponseDTO client = clientService.getByClientId(clientId);
-        return ResponseEntity.ok(client);
+       return ResponseEntity.ok(clientService.getByClientId(clientId));
     }
 
 
     @GetMapping
     public ResponseEntity<List<ClientResponseDTO>> getAllClients() {
-        List<ClientResponseDTO> clients = clientService.getAllClients();
-        return ResponseEntity.ok(clients);
+      return ResponseEntity.ok(clientService.getAllClients());
     }
 
     @PostMapping
     public ResponseEntity<ClientResponseDTO> createClient(@RequestBody ClientCreateDTO clientCreateDTO) {
-        ClientResponseDTO createdClient = clientService.createClient(clientCreateDTO);
-        return new ResponseEntity<>(createdClient, HttpStatus.CREATED);
+       return new ResponseEntity<>(clientService.createClient(clientCreateDTO),
+                HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ClientResponseDTO> updateClient(@PathVariable Long id, @RequestBody ClientUpdateDTO clientUpdateDTO) {
-        ClientResponseDTO updatedClient = clientService.updateClient(id, clientUpdateDTO);
-        return ResponseEntity.ok(updatedClient);
+        return ResponseEntity.ok(clientService.updateClient(id, clientUpdateDTO));
     }
 
     @PatchMapping("/{id}")
     public ResponseEntity<ClientResponseDTO> patchClient(@PathVariable Long id, @RequestBody ClientUpdateDTO clientUpdateDTO) {
-        ClientResponseDTO patchedClient = clientService.patchClient(id, clientUpdateDTO);
-        return ResponseEntity.ok(patchedClient);
+        return ResponseEntity.ok(clientService.patchClient(id, clientUpdateDTO));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteClient(@PathVariable Long id) {
-        clientService.deleteClient(id);
+    public ResponseEntity<Void> deleteClient(@PathVariable String id) {
+        clientService.deleteByClientId(id);
         return ResponseEntity.noContent().build();
     }
 }

@@ -71,7 +71,7 @@ public class ClientServiceImp implements ClientService{
             client.setName(clientUpdateDTO.getName());
         }
         if (clientUpdateDTO.getGender() != null) {
-            client.setGender(Gender.fromValue(clientUpdateDTO.getGender()));
+            client.addGender(clientUpdateDTO.getGender());
         }
         if (clientUpdateDTO.getAge() > 0) {
             client.setAge(clientUpdateDTO.getAge());
@@ -96,17 +96,17 @@ public class ClientServiceImp implements ClientService{
     }
 
     @Override
-    public void deleteClient(Long clientId) {
-        clientRepository.deleteById(clientId);
+    public void deleteByClientId(String clientId) {
+        clientRepository.deleteByClientId(clientId);
     }
 
     private Client getClientEntityById(Long id) {
         return clientRepository.findById(id)
-                .orElseThrow(() -> new DomainException("Client not found with id: " + id));
+                .orElseThrow(() -> new DomainException("Cliente no encontrado con id: " + id));
     }
 
     private Client getClientEntityByClientId(String clientId) {
         return clientRepository.findByClientId(clientId)
-                .orElseThrow(() -> new DomainException("Client not found with clientId: " + clientId));
+                .orElseThrow(() -> new DomainException("Client no encontrado con clientId: " + clientId));
     }
 }

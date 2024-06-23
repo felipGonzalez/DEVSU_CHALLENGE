@@ -22,5 +22,5 @@ public interface ClientService {
 
     ClientResponseDTO patchClient(Long clientId, ClientUpdateDTO clientUpdateDTO);
 
-    void deleteClient(Long clientId);
+    void deleteByClientId(String clientId);
 }
