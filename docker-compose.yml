@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  accountservice:
+    build:
+      context: ./accountservice
+    ports:
+      - "8081:8081"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql_database:3306/accountdb?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root_password
+      CLIENT_SERVICE_URL: http://customerservice:8080/
+    depends_on:
+      - mysql_database
+    restart: unless-stopped
+    networks:
+      - my-network
+
+  customerservice:
+    build:
+      context: ./customerservice
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql_database:3306/customerdb?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC&characterEncoding=UTF-8
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root_password
+      ACCOUNT_SERVICE_URL: http://accountservice:8081/
+    depends_on:
+      - mysql_database
+    restart: unless-stopped
+    networks:
+      - my-network
+
+  mysql_database:
+    image: mysql:8
+    ports:
+      - "3310:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: main_database
+    volumes:
+      - ./DB:/docker-entrypoint-initdb.d
+    command: --init-file /docker-entrypoint-initdb.d/BaseDatos.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge

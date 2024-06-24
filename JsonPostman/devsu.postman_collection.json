@@ -1,0 +1,354 @@
+{
+	"info": {
+		"_postman_id": "b487d687-3d9e-4706-97b9-d9d895348a01",
+		"name": "devsu",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "6408847"
+	},
+	"item": [
+		{
+			"name": "customerService",
+			"item": [
+				{
+					"name": "Clientes",
+					"item": [
+						{
+							"name": "Client Read",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8080/clientes/1"
+							},
+							"response": []
+						},
+						{
+							"name": "Client Read By clientId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/clientes/?clientId=JD123",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"clientes",
+										""
+									],
+									"query": [
+										{
+											"key": "clientId",
+											"value": "JD123"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Client Read All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8080/clientes"
+							},
+							"response": []
+						},
+						{
+							"name": "Client Save",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "    {\r\n        \"name\": \"Jose Lema\",\r\n        \"gender\": \"hombre\",\r\n        \"age\": 30,\r\n        \"identification\": \"1234567890\",\r\n        \"address\": \"Otavalo sn y principal\",\r\n        \"phone\": \"5551234\",\r\n        \"status\": true,\r\n        \"password\": \"1223\" \r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/clientes"
+							},
+							"response": []
+						},
+						{
+							"name": "Client Update",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"John Doe\",\r\n    \"gender\": \"Hombre\",\r\n    \"age\": 35,\r\n    \"identification\": \"1234567890\",\r\n    \"address\": \"123 Fake Street\",\r\n    \"phone\": \"3131331\",\r\n    \"status\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/clientes/1"
+							},
+							"response": []
+						},
+						{
+							"name": "Client Edit Patch",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"age\": 30,\r\n    \"phone\": \"5555555\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8080/clientes/1"
+							},
+							"response": []
+						},
+						{
+							"name": "Client Delete",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:8080/clientes/a673e"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "accountService",
+			"item": [
+				{
+					"name": "account",
+					"item": [
+						{
+							"name": "Account Read All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8081/cuentas"
+							},
+							"response": []
+						},
+						{
+							"name": "Account Read By accountId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8081/cuentas/478758"
+							},
+							"response": []
+						},
+						{
+							"name": "Account Read By clientId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/cuentas/cliente?clientId=JD123",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"cuentas",
+										"cliente"
+									],
+									"query": [
+										{
+											"key": "clientId",
+											"value": "JD123"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Account Save",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"accountId\": \"47875863\",\r\n    \"type\": \"Ahorro\",\r\n    \"balance\": \"132\",\r\n    \"status\": true,\r\n    \"clientId\": \"JD123\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8081/cuentas"
+							},
+							"response": []
+						},
+						{
+							"name": "Account Update",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"status\": true\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8081/cuentas/47875863"
+							},
+							"response": []
+						},
+						{
+							"name": "Account Delete By accountId",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:8081/cuentas/47875863"
+							},
+							"response": []
+						},
+						{
+							"name": "Account delete By clientId",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:8081/cuentas/cliente/JD123"
+							},
+							"response": []
+						},
+						{
+							"name": "Movement Create ",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "   {\r\n        \"accountId\": \"225689\",\r\n        \"amount\": 10000.0\r\n    }",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "http://localhost:8081/movimientos"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "movement",
+					"item": [
+						{
+							"name": "Movement Read All",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8081/movimientos"
+							},
+							"response": []
+						},
+						{
+							"name": "Movement Read By accountId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/movimientos/cuenta?id=478758",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"movimientos",
+										"cuenta"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "478758"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Movement Read By ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8081/movimientos/1"
+							},
+							"response": []
+						},
+						{
+							"name": "Movemene Delete By id",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:8081/movimientos/1"
+							},
+							"response": []
+						},
+						{
+							"name": "Movement Delete By accounId",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "http://localhost:8081/movimientos/cuenta/478758"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "report",
+					"item": [
+						{
+							"name": "Report by date and clientId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8081/reportes?date=01-01-2024&clientId=JD123",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8081",
+									"path": [
+										"reportes"
+									],
+									"query": [
+										{
+											"key": "date",
+											"value": "01-01-2024"
+										},
+										{
+											"key": "clientId",
+											"value": "JD123"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
