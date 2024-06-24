@@ -4,6 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,7 +18,7 @@ public class Account {
 
     private AccountType type;
 
-    private Double balance;
+    private BigDecimal balance;
 
     private boolean status;
 
@@ -23,8 +26,16 @@ public class Account {
 
     private String clientName;
 
+
     public void addType(String type){
         this.type = AccountType.fromValue(type);
+    }
+
+    public String getTypeAccountValue(){
+        if(type == null) {
+            return null;
+        }
+        return type.getValue();
     }
 
 }

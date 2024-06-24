@@ -1,9 +1,9 @@
-package com.devsu.accountservice.infrastructure.communication.dto;
+package com.devsu.accountservice.domain.model;
 
 import lombok.Data;
 
 @Data
-public class ClientDTO {
+public class Client {
 
     private Long id;
     private String clientId;

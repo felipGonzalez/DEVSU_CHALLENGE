@@ -2,6 +2,7 @@ package com.devsu.customerservice.infrastructure.repository.client;
 
 import com.devsu.customerservice.domain.model.Client;
 import com.devsu.customerservice.domain.repository.ClientRepository;
+import com.devsu.customerservice.infrastructure.communication.AsyncRestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,10 +16,12 @@ import java.util.stream.Collectors;
 public class ClientRepositoryImp implements ClientRepository {
 
     private final SpringDataClientRepository springDataClientRepository;
+    private final AsyncRestService asyncRestService;
 
     @Autowired
-    public ClientRepositoryImp(SpringDataClientRepository springDataClientRepository) {
+    public ClientRepositoryImp(SpringDataClientRepository springDataClientRepository, AsyncRestService asyncRestService) {
         this.springDataClientRepository = springDataClientRepository;
+        this.asyncRestService = asyncRestService;
     }
 
     @Override
@@ -50,6 +53,7 @@ public class ClientRepositoryImp implements ClientRepository {
     @Override
     public void deleteByClientId(String clientId) {
         springDataClientRepository.deleteByClientId(clientId);
+        asyncRestService.deleteSyncData("cuentas/cliente/"+clientId);
     }
 
     private Client mapToClient(ClientEntity clientEntity) {

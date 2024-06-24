@@ -22,4 +22,6 @@ public interface AccountService {
 
     void deleteByAccountId(String accountId);
 
+    void deleteByClientId(String clientId);
+
 }

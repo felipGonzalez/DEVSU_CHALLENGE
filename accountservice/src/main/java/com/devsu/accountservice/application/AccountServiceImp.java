@@ -7,18 +7,27 @@ import com.devsu.accountservice.application.mapper.AccountMapper;
 import com.devsu.accountservice.domain.DomainException;
 import com.devsu.accountservice.domain.model.Account;
 import com.devsu.accountservice.domain.repository.AccountRepository;
+import com.devsu.accountservice.domain.repository.ClientRepository;
+import com.devsu.accountservice.domain.repository.MovementRepository;
+
 import static com.devsu.accountservice.domain.validator.AccountValidator.*;
 
-import javax.xml.validation.Validator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class AccountServiceImp implements AccountService{
 
     private final AccountRepository accountRepository;
+    private final MovementRepository movementRepository;
 
-    public AccountServiceImp(AccountRepository accountRepository) {
+    private final ClientRepository clientRepository;
+
+
+    public AccountServiceImp(AccountRepository accountRepository,
+                             MovementRepository movementRepository, ClientRepository clientRepository) {
         this.accountRepository = accountRepository;
+        this.movementRepository = movementRepository;
+        this.clientRepository = clientRepository;
     }
 
 
@@ -54,6 +63,8 @@ public class AccountServiceImp implements AccountService{
         Account account = AccountMapper.toEntity(accountCreateDTO);
         checkAccountId(account.getAccountId());
         validateDataCreateAccount(account);
+        clientRepository.findByClientId(accountCreateDTO.getClientId())
+                .orElseThrow(() -> new DomainException("No existe un cliente con id: " + accountCreateDTO.getClientId()));
         account = accountRepository.save(account);
         return AccountMapper.toDTO(account);
     }
@@ -69,7 +80,16 @@ public class AccountServiceImp implements AccountService{
 
     @Override
     public void deleteByAccountId(String accountId) {
+        movementRepository.deleteByAccountId(accountId);
         accountRepository.deleteByAccountId(accountId);
+    }
+
+    @Override
+    public void deleteByClientId(String clientId) {
+        List<Account> accounts = accountRepository.findByClientId(clientId);
+        for (Account account: accounts ) {
+            deleteByAccountId(account.getAccountId());
+        }
     }
 
     private Account getAccountEntityById(Long id) {

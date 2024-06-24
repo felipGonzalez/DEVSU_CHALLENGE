@@ -1,9 +1,12 @@
 package com.devsu.accountservice.infrastructure.repository.account;
 
+import com.devsu.accountservice.domain.model.Account;
 import com.devsu.accountservice.domain.model.AccountType;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "account")
@@ -23,11 +26,12 @@ public class AccountEntity {
     private AccountType type;
 
     @Column(name = "balance", nullable = false)
-    private double balance;
+    private BigDecimal balance;
 
     @Column(name = "status", nullable = false)
     private boolean status;
 
     @Column(name = "client_id", nullable = false)
     private String clientId;
+
 }

@@ -20,16 +20,16 @@ public class AccountMapper {
         return entity;
     }
 
-    public static AccountResponseDTO toDTO(Account entity) {
-        if (entity == null) {
+    public static AccountResponseDTO toDTO(Account account) {
+        if (account == null) {
             return null;
         }
         AccountResponseDTO dto = new AccountResponseDTO();
-        dto.setAccountId(entity.getAccountId());
-        dto.setType(entity.getType().getValue());
-        dto.setBalance(entity.getBalance());
-        dto.setStatus(entity.isStatus());
-        dto.setClientId(entity.getClientId());
+        dto.setAccountId(account.getAccountId());
+        dto.setType(account.getTypeAccountValue());
+        dto.setBalance(account.getBalance());
+        dto.setStatus(account.isStatus());
+        dto.setClientId(account.getClientId());
         return dto;
     }
 

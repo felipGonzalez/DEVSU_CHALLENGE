@@ -52,4 +52,10 @@ public class AccountController {
         accountService.deleteByAccountId(accountId);
         return ResponseEntity.noContent().build();
     }
+
+    @DeleteMapping("/cliente/{clientId}")
+    public ResponseEntity<Void> deleteAccountByClientId(@PathVariable String clientId) {
+        accountService.deleteByClientId(clientId);
+        return ResponseEntity.noContent().build();
+    }
 }
