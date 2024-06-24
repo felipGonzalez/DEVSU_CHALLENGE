@@ -32,7 +32,7 @@ Asegúrate de tener Docker y Docker Compose instalados en tu máquina.
 Clonar el proyecto
 
 ```bash
-  git clone https://link-to-project
+  git clone https://github.com/felipGonzalez/DEVSU_CHALLENGE.git
 ```
 
 En el directorio raíz del proyecto, donde se encuentra el archivo docker-compose.yml, ejecuta el siguiente comando para construir las imágenes de Docker de tus servicios:
