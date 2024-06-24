@@ -22,7 +22,6 @@ class ClientTest {
     public void testGenerateClientId() {
         // Act
         client.generateClientId();
-
         // Assert
         assertNotNull(client.getClientId());
         assertEquals(5, client.getClientId().length());
